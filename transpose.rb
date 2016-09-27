@@ -1,3 +1,5 @@
+# Figure out how to use a module!!
+
 NOTES = {
   "C" => 1,
   "C#" => 2,
@@ -36,28 +38,33 @@ INTERVALS = {
   "Octave" => 12
 }
 
+def initialize
+  @note = note
+end
 
-
+@note_value = NOTES[note]
+@interval_value = INTERVALS[interval]
+@new_note_value = @note_value + @interval_value
 
 def transpose_up(note, interval)
-  note_value = NOTES[note]
-  interval_value = INTERVALS[interval]
-  new_note_value = note_value + interval_value
-  if new_note_value > 12
-    new_note_value = new_note_value - 12
+  # note_value = NOTES[note]
+  # interval_value = INTERVALS[interval]
+  # new_note_value = note_value + interval_value
+  if @new_note_value > 12
+    @new_note_value = @new_note_value - 12
   end
-  puts NOTES.key(new_note_value)
+  puts NOTES.key(@new_note_value)
 end
 
-def transpose_down(note, interval)
-  note_value = NOTES[note]
-  interval_value = INTERVALS[interval]
-  new_note_value = note_value - interval_value
-  if new_note_value < 0
-    new_note_value = new_note_value + 12
-  end
-  puts NOTES.key(new_note_value)
-end
+# def transpose_down(note, interval)
+#   note_value = NOTES[note]
+#   interval_value = INTERVALS[interval]
+#   new_note_value = note_value - interval_value
+#   if new_note_value < 0
+#     new_note_value = new_note_value + 12
+#   end
+#   puts NOTES.key(new_note_value)
+# end
 
 transpose_up("B", "Major 3rd")
-transpose_down("C", "Minor 3rd")
+# transpose_down("C", "Minor 3rd")
