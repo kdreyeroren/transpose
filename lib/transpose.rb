@@ -2,22 +2,52 @@ require "transpose/version"
 
 module Transpose
 
-  NOTES = {
+  # NOTES = {
+  #   "C" => 1,
+  #   "C#" => 2,
+  #   "Db" => 2,
+  #   "D" => 3,
+  #   "D#" => 4,
+  #   "Eb" => 4,
+  #   "E" => 5,
+  #   "F" => 6,
+  #   "F#" => 7,
+  #   "Gb" => 7,
+  #   "G" => 8,
+  #   "G#" => 9,
+  #   "Ab" => 9,
+  #   "A" => 10,
+  #   "A#" => 11,
+  #   "Bb" => 11,
+  #   "B" => 12
+  # }
+
+  SHARPS = {
     "C" => 1,
     "C#" => 2,
-    "Db" => 2,
     "D" => 3,
     "D#" => 4,
-    "Eb" => 4,
     "E" => 5,
     "F" => 6,
     "F#" => 7,
-    "Gb" => 7,
     "G" => 8,
     "G#" => 9,
-    "Ab" => 9,
     "A" => 10,
     "A#" => 11,
+    "B" => 12
+  }
+
+  FLATS = {
+    "C" => 1,
+    "Db" => 2,
+    "D" => 3,
+    "Eb" => 4,
+    "E" => 5,
+    "F" => 6,
+    "Gb" => 7,
+    "G" => 8,
+    "Ab" => 9,
+    "A" => 10,
     "Bb" => 11,
     "B" => 12
   }
@@ -40,24 +70,39 @@ module Transpose
   }
 
   def self.transpose_up(note, interval)
-    note_value = NOTES[note]
-    interval_value = INTERVALS[interval]
-    new_note_value = note_value + interval_value
-    note_value_to_name(new_note_value)
+    if note.include? "b"
+      note_value = FLATS[note]
+      interval_value = INTERVALS[interval]
+      new_note_value = note_value + interval_value
+      flat_value_to_name(new_note_value)
+    else
+      note_value = SHARPS[note]
+      interval_value = INTERVALS[interval]
+      new_note_value = note_value + interval_value
+      sharp_value_to_name(new_note_value)
+    end
   end
 
   def self.transpose_down(note, interval)
-    note_value = NOTES[note]
-    interval_value = INTERVALS[interval]
-    new_note_value = note_value - interval_value
-    note_value_to_name(new_note_value)
+    if note.include? "b"
+      note_value = FLATS[note]
+      interval_value = INTERVALS[interval]
+      new_note_value = note_value - interval_value
+      flat_value_to_name(new_note_value)
+    else
+      note_value = SHARPS[note]
+      interval_value = INTERVALS[interval]
+      new_note_value = note_value - interval_value
+      sharp_value_to_name(new_note_value)
+    end
   end
 
-  def self.note_value_to_name(note_value)
-    NOTES.key(note_value % 12)
+  def self.flat_value_to_name(note_value)
+    FLATS.key(note_value % 12)
   end
 
-
-
+  def self.sharp_value_to_name(note_value)
+    SHARPS.key(note_value % 12)
+  end
 
 end

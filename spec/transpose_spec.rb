@@ -14,7 +14,6 @@ describe Transpose do
     end
 
     it "returns a flat when given a flat" do
-      pending "fixing enharmonic equivalence"
       new_note = Transpose.transpose_up("Bb", "Perfect 4th")
       expect(new_note).to eq "Eb"
     end
@@ -34,7 +33,6 @@ describe Transpose do
     end
 
     it "returns a flat when given a flat" do
-      pending "fixing enharmonic equivalence"
       new_note = Transpose.transpose_down("Eb", "Perfect 4th")
       expect(new_note).to eq "Bb"
     end
