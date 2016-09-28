@@ -43,14 +43,21 @@ module Transpose
     note_value = NOTES[note]
     interval_value = INTERVALS[interval]
     new_note_value = note_value + interval_value
-    NOTES.key(new_note_value % 12)
+    note_value_to_name(new_note_value)
   end
 
   def self.transpose_down(note, interval)
     note_value = NOTES[note]
     interval_value = INTERVALS[interval]
     new_note_value = note_value - interval_value
-    NOTES.key(new_note_value % 12)
+    note_value_to_name(new_note_value)
   end
+
+  def self.note_value_to_name(note_value)
+    NOTES.key(note_value % 12)
+  end
+
+
+
 
 end
