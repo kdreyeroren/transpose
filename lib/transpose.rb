@@ -2,26 +2,6 @@ require "transpose/version"
 
 module Transpose
 
-  # NOTES = {
-  #   "C" => 1,
-  #   "C#" => 2,
-  #   "Db" => 2,
-  #   "D" => 3,
-  #   "D#" => 4,
-  #   "Eb" => 4,
-  #   "E" => 5,
-  #   "F" => 6,
-  #   "F#" => 7,
-  #   "Gb" => 7,
-  #   "G" => 8,
-  #   "G#" => 9,
-  #   "Ab" => 9,
-  #   "A" => 10,
-  #   "A#" => 11,
-  #   "Bb" => 11,
-  #   "B" => 12
-  # }
-
   SHARPS = {
     "C" => 1,
     "C#" => 2,
@@ -69,30 +49,38 @@ module Transpose
     "Octave" => 12
   }
 
+  def self.flat?(note)
+    note.end_with?("b")
+  end
+
+  def self.get_value_from_flat_note(note)
+    FLATS[note]
+  end
+
+  def self.get_value_from_sharp_note(note)
+    SHARPS[note]
+  end
+
+  def self.get_value_of_interval(interval)
+    INTERVALS[interval]
+  end
+
   def self.transpose_up(note, interval)
-    if note.include? "b"
-      note_value = FLATS[note]
-      interval_value = INTERVALS[interval]
-      new_note_value = note_value + interval_value
+    if flat?(note)
+      new_note_value = get_value_from_flat_note(note) + get_value_of_interval(interval)
       flat_value_to_name(new_note_value)
     else
-      note_value = SHARPS[note]
-      interval_value = INTERVALS[interval]
-      new_note_value = note_value + interval_value
+      new_note_value = get_value_from_sharp_note(note) + get_value_of_interval(interval)
       sharp_value_to_name(new_note_value)
     end
   end
 
   def self.transpose_down(note, interval)
-    if note.include? "b"
-      note_value = FLATS[note]
-      interval_value = INTERVALS[interval]
-      new_note_value = note_value - interval_value
+    if flat?(note)
+      new_note_value = get_value_from_flat_note(note) - get_value_of_interval(interval)
       flat_value_to_name(new_note_value)
     else
-      note_value = SHARPS[note]
-      interval_value = INTERVALS[interval]
-      new_note_value = note_value - interval_value
+      new_note_value = get_value_from_sharp_note(note) - get_value_of_interval(interval)
       sharp_value_to_name(new_note_value)
     end
   end
